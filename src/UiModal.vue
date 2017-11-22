@@ -104,7 +104,11 @@ export default {
         dismissOn: {
             type: String,
             default: 'backdrop esc close-button'
-        }
+        },
+        containFocus: {
+            type: Boolean,
+            default: true
+        },
     },
 
     data() {
@@ -210,6 +214,10 @@ export default {
 
             classlist.add(document.body, 'ui-modal--is-open');
             this.incrementOpenModalCount();
+
+            if (this.containFocus) {
+                document.addEventListener('focus', this.restrictFocus, true);
+            }
 
             this.$emit('open');
         },
